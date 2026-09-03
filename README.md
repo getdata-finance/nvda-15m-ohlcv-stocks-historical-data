@@ -4,7 +4,7 @@
 
 ### -> [**Download the full NVDA dataset on getdata.finance**](https://getdata.finance/datasets/nvda)
 
-**NVDA 15m OHLCV stocks historical data** — ultra high-quality 15m OHLCV for **NVIDIA**. Clean `time, open, high, low, close, volume` CSV for backtesting, algorithmic trading and quantitative research.
+**NVDA 15m OHLCV stocks historical data** — ultra high-quality 15m OHLCV for **NVIDIA**. Clean `datetime, open, high, low, close, volume` CSV for backtesting, algorithmic trading and quantitative research.
 
 ## Table of contents
 
@@ -22,12 +22,12 @@
 ## Why this dataset?
 
 - **Ultra high-quality 15m OHLCV** for **NVIDIA** (US stocks)
-- **Clean CSV schema** — `time, open, high, low, close, volume` (no gaps in formatting)
+- **Clean CSV schema** — `datetime, open, high, low, close, volume` (no gaps in formatting)
 - **Free evaluation sample** on GitHub (`15m`) · **11 timeframes** on [getdata.finance](https://getdata.finance/datasets/nvda) · **39,958** `15m` rows in the full archive
 - Built for **backtesting**, **algorithmic trading** and **quantitative finance** workflows
 - **Weekly refresh** — [getdata.finance](https://getdata.finance) every **Saturday, 8am UTC+0**; GitHub `15m` sample updated in sync
 
-> **Sample on GitHub** · `NVDA_15m.csv` (3,696 rows, `2026-02-06` -> `2026-09-01`, 370.07 KB). **Full archive on [getdata.finance](https://getdata.finance/datasets/nvda)** — **39,958** `15m` rows (full `1m`: 599,253), **11 timeframes**, `2020-07-14` -> `2026-09-01`.
+> **Sample on GitHub** · `NVDA_15m.csv` (3,696 rows, `2026-02-06` -> `2026-09-01`, 370.08 KB). **Full archive on [getdata.finance](https://getdata.finance/datasets/nvda)** — **39,958** `15m` rows (full `1m`: 599,253), **11 timeframes**, `2020-07-14` -> `2026-09-01`.
 
 ## Download sample
 
@@ -46,7 +46,7 @@ Full archive & live chart on getdata.finance: **[https://getdata.finance/dataset
 | Instrument | NVIDIA · US stocks | NVIDIA · US stocks |
 | Timeframes | `15m` (sample) | **11** — 1m · 3m · 5m · 15m · 30m · 1H · 4H · 12H · 1D · 3D · 1W |
 | 15m rows | 3,696 | **39,958** |
-| Size | 370.07 KB | full ZIP on [getdata.finance](https://getdata.finance/datasets/nvda) |
+| Size | 370.08 KB | full ZIP on [getdata.finance](https://getdata.finance/datasets/nvda) |
 | Period | `2026-02-06` -> `2026-09-01` | `2020-07-14` -> `2026-09-01` |
 | File | `NVDA_15m.csv` | ZIP on [getdata.finance](https://getdata.finance/datasets/nvda) |
 | Coverage report | — | [NVDA coverage](https://getdata.finance/coverage/nvda) |
@@ -73,7 +73,7 @@ First and latest rows from the GitHub sample **`NVDA_15m.csv`**:
 
 **First rows**
 
-| time | open | high | low | close | volume |
+| datetime | open | high | low | close | volume |
 | --- | --- | --- | --- | --- | --- |
 | 2026-02-06T20:00:00+00:00 | 182.68 | 183.14 | 182.37 | 182.72 | 2458 |
 | 2026-02-06T20:15:00+00:00 | 182.72 | 183.3 | 182.7 | 183.05 | 3561 |
@@ -83,7 +83,7 @@ First and latest rows from the GitHub sample **`NVDA_15m.csv`**:
 
 **Last rows**
 
-| time | open | high | low | close | volume |
+| datetime | open | high | low | close | volume |
 | --- | --- | --- | --- | --- | --- |
 | 2026-09-01T18:45:00+00:00 | 212.95 | 213.86 | 212.79 | 213.76 | 3809 |
 | 2026-09-01T19:00:00+00:00 | 213.76 | 214.29 | 213.69 | 214.26 | 3105 |
@@ -95,7 +95,7 @@ First and latest rows from the GitHub sample **`NVDA_15m.csv`**:
 
 | Column | Description |
 | --- | --- |
-| `time` | Bar open timestamp (UTC, ISO-8601). |
+| `datetime` | Bar open timestamp (UTC, ISO-8601). |
 | `open` | Opening price of the candlestick bar. |
 | `high` | Highest price during the bar. |
 | `low` | Lowest price during the bar. |
@@ -103,7 +103,7 @@ First and latest rows from the GitHub sample **`NVDA_15m.csv`**:
 | `volume` | Tick volume (number of price updates) during the bar. |
 
 ```text
-time,open,high,low,close,volume
+datetime,open,high,low,close,volume
 ```
 
 ## Code examples
@@ -113,8 +113,8 @@ time,open,high,low,close,volume
 ```python
 import pandas as pd
 
-df = pd.read_csv('NVDA_15m.csv', parse_dates=['time'])
-df.set_index('time', inplace=True)
+df = pd.read_csv('NVDA_15m.csv', parse_dates=['datetime'])
+df.set_index('datetime', inplace=True)
 print(df.describe())
 ```
 
@@ -124,8 +124,8 @@ print(df.describe())
 import backtrader as bt
 import pandas as pd
 
-df = pd.read_csv('NVDA_15m.csv', parse_dates=['time'])
-df.set_index('time', inplace=True)
+df = pd.read_csv('NVDA_15m.csv', parse_dates=['datetime'])
+df.set_index('datetime', inplace=True)
 
 class PandasData(bt.feeds.PandasData):
     params = (('datetime', None), ('open', 'open'), ('high', 'high'),
@@ -143,8 +143,8 @@ cerebro.adddata(PandasData(dataname=df))
 import pandas as pd
 import vectorbt as vbt
 
-df = pd.read_csv('NVDA_15m.csv', parse_dates=['time'])
-close = df.set_index('time')['close']
+df = pd.read_csv('NVDA_15m.csv', parse_dates=['datetime'])
+close = df.set_index('datetime')['close']
 fast, slow = vbt.MA.run(close, 10), vbt.MA.run(close, 50)
 entries = fast.ma_crossed_above(slow)
 exits = fast.ma_crossed_below(slow)
