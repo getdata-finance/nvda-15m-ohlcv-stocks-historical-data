@@ -27,7 +27,7 @@
 - Built for **backtesting**, **algorithmic trading** and **quantitative finance** workflows
 - **Weekly refresh** — [getdata.finance](https://getdata.finance) every **Saturday, 8am UTC+0**; GitHub `15m` sample updated in sync
 
-> **Sample on GitHub** · `NVDA_15m.csv` (3,696 rows, `2026-02-06` -> `2026-09-01`, 370.08 KB). **Full archive on [getdata.finance](https://getdata.finance/datasets/nvda)** — **39,958** `15m` rows (full `1m`: 599,253), **11 timeframes**, `2020-07-14` -> `2026-09-01`.
+> **Sample on GitHub** · `NVDA_15m.csv` (3,696 rows, `2026-02-06` -> `2026-09-01`, 370.08 KB). **Full archive on [getdata.finance](https://getdata.finance/datasets/nvda)** — **39,958** `15m` rows (full `1m`: 598,377), **11 timeframes**, `2020-07-14` -> `2026-09-01`.
 
 ## Download sample
 
